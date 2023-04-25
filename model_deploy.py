@@ -75,8 +75,8 @@ if st.button('Result'):
         from gensim.models import Word2Vec
         from mol2vec.features import mol2alt_sentence, mol2sentence, MolSentence, DfVec, sentences2vec
         from gensim.models import word2vec
-        open('model_300dim.pkl', 'rb')
-        w2vec_model = pickle.load('model_300dim.pkl')
+        with open('model_300dim.pkl', 'rb') as f:
+            w2vec_model = pickle.load(f)
         df['sentence_API'] = df.apply(lambda x: MolSentence(mol2alt_sentence(x['mol_API'], 1)), axis=1)
         df['mol2vec_API'] = [DfVec(x) for x in sentences2vec(df['sentence_API'], w2vec_model, unseen='UNK')]
         df['sentence_Excipient'] = df.apply(lambda x: MolSentence(mol2alt_sentence(x['mol_Excipient'], 1)), axis=1)
