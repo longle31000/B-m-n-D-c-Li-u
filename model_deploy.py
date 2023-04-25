@@ -91,7 +91,7 @@ if st.button('Result'):
     
         if y_prediction[0] == 1:
             Predict_Result3 = 'Incompatible.'
-	else:
+        else:
             Predict_Result3 = 'Compatible.'
         st.success(Predict_Result3)
         st.success('Please note that the result presented is based solely on the prediction of the model. Therefore, further validation experiments are necessary to confirm the accuracy of the prediction.')
