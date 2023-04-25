@@ -84,7 +84,7 @@ if st.button('Result'):
         X2 = np.array([y.vec for y in df['mol2vec_Excipient']])
         X = pd.concat((pd.DataFrame(X1), pd.DataFrame(X2), df.drop(['mol2vec_API','mol2vec_Excipient', 'sentence_Excipient', 
                                                                 'API_Structure', 'Excipient_Structure' ,'mol_API',
-                                                                'mol_Excipient','sentence_API'], axis=1)), axis=1)
+                                                                'mol_Excipient','sentence_API','API_CID','Excipient_CID'], axis=1)), axis=1)
     # 
         model = joblib.load('model100.pkl')
         y_prediction = model.predict(X.values)
