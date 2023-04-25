@@ -50,6 +50,7 @@ if st.button('Result'):
         else:
             Predict_Result1 = 'Compatible.'
         st.success(Predict_Result1)
+        st.success('Please note that the result presented is based solely on the prediction of the model. Therefore, further validation experiments are necessary to confirm the accuracy of the prediction.')
 
     elif not longle2.empty:
         outcome2 = longle2.loc[:, 'Outcome1']
@@ -57,7 +58,8 @@ if st.button('Result'):
              Predict_Result2 = 'Incompatible.'
         else:
              Predict_Result2 = 'Compatible.'
-        st.success(Predict_Result2)       
+        st.success(Predict_Result2)
+        st.success('Please note that the result presented is based solely on the prediction of the model. Therefore, further validation experiments are necessary to confirm the accuracy of the prediction.')
         
     else:   
         import pubchempy as pcp
