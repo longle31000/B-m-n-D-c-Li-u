@@ -72,11 +72,9 @@ if st.button('Result'):
         df['mol_Excipient'] = df['Excipient_Structure'].apply(lambda x: Chem.MolFromSmiles(x)) 
         df['mol_Excipient'] = df['mol_Excipient'].apply(lambda x: Chem.AddHs(x))
     #
-        from gensim.models import Word2Vec
         from mol2vec.features import mol2alt_sentence, mol2sentence, MolSentence, DfVec, sentences2vec
         from gensim.models import word2vec
-        with open('model_300dim.pkl', 'rb') as f:
-            w2vec_model = pickle.load(f)
+        w2vec_model = word2vec.Word2Vec.load('model_300dim.pkl')
         df['sentence_API'] = df.apply(lambda x: MolSentence(mol2alt_sentence(x['mol_API'], 1)), axis=1)
         df['mol2vec_API'] = [DfVec(x) for x in sentences2vec(df['sentence_API'], w2vec_model, unseen='UNK')]
         df['sentence_Excipient'] = df.apply(lambda x: MolSentence(mol2alt_sentence(x['mol_Excipient'], 1)), axis=1)
