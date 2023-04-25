@@ -87,7 +87,7 @@ if st.button('Result'):
                                                                 'mol_Excipient','sentence_API'], axis=1)), axis=1)
     # 
         model = joblib.load('model100.pkl')
-        y_prediction = model.predict(X)
+        y_prediction = model.predict(X.values)
     
         if y_prediction[0] == 1:
             Predict_Result3 = 'Incompatible.'
