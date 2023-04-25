@@ -30,7 +30,7 @@ with col1:
 with col2:
     Excipient_CID = st.text_input('Enter PubChem CID, or SMILES string of the excipient')
 
-df1 = pd.read_csv('F:\Phuong\Project\API Excipient interaction\Final\Streamlit app\BM Duoc lieu\data.csv')
+df1 = pd.read_csv('data.csv')
 #%%
 # code for Prediction
 Predict_Result1 = ''
