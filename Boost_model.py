@@ -2,7 +2,11 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-df = pd.read_csv("F:\Phuong\Project\API Excipient interaction\Final\Streamlit app\BomonDuoclieu\data.csv")
+import io
+import requests
+url = 'https://raw.githubusercontent.com/phuongnvp/BomonDuoclieu/main/data.csv'
+s=requests.get(url).content
+df=pd.read_csv(io.StringIO(s.decode('utf-8')))
 df.columns = ['Pub_CID' + str(i+1) if i<100 else col for i, col in enumerate(df.columns)]
 df.columns = ['Pub_Excipient' + str(i+1) if 99<i<200 else col for i, col in enumerate(df.columns)]
 df.shape
@@ -28,7 +32,7 @@ from sklearn.ensemble import AdaBoostClassifier
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
 model2 = RandomForestClassifier(n_estimators=100)
-model3 = XGBClassifier(max_depth=7, learning_rate=0.3, n_estimators=100)
+model3 = XGBClassifier(max_depth=5, learning_rate=0.1, n_estimators=100)
 
 #%%
 from sklearn.ensemble import VotingClassifier
@@ -45,7 +49,7 @@ y_pred = boost_model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 f1 = f1_score(y_test, y_pred)
 precision = precision_score(y_test, y_pred)
-print("Độ chính xác:", accuracy)
+print("Accuracy:", accuracy)
 print("F1-score:", f1)
 print("Precision:", precision)
 #%%
@@ -71,7 +75,7 @@ y_pred_2 = (boost_model.predict_proba(X_test)[:,1] >= thresholds[ix]).astype(boo
 accuracy_2 = accuracy_score(y_test, y_pred_2)
 f1_2 = f1_score(y_test, y_pred_2)
 precision_2 = precision_score(y_test, y_pred_2)
-print("Độ chính xác:", accuracy_2)
+print("Accuracy:", accuracy_2)
 print("F1-score:", f1_2)
 print("Precision:", precision_2)
 
@@ -107,7 +111,7 @@ calc_metrics(y_test, y_pred_3, threshold = threshold1)
 accuracy_3 = accuracy_score(y_test, y_pred_3)
 f1_3 = f1_score(y_test, y_pred_3)
 precision_3 = precision_score(y_test, y_pred_3)
-print("Độ chính xác:", accuracy_3)
+print("Accuracy:", accuracy_3)
 print("F1-score:", f1_3)
 print("Precision:", precision_3)
 
