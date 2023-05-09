@@ -90,8 +90,8 @@ if st.button('Result'):
     # 
         model = joblib.load('model100.pkl')
         y_prediction = (model.predict_proba(X.values)[:,1] >= 0.022).astype(bool)
-        probs1 = round(model.predict_proba(X.values)[:,1] * 100, 2)
-        probs0 = round(model.predict_proba(X.values)[:,0] * 100, 2)
+        probs1 = np.round(model.predict_proba(X.values)[:,1] * 100, 2)
+        probs0 = np.round(model.predict_proba(X.values)[:,0] * 100, 2)
     
         if y_prediction[0] == 1:
             Predict_Result3 = 'Incompatible. Probality: ', probs1, '%'
