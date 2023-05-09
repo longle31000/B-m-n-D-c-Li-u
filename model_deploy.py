@@ -89,7 +89,7 @@ if st.button('Result'):
                                                                 'mol_Excipient','sentence_API','API_CID','Excipient_CID'], axis=1)), axis=1)
     # 
         model = joblib.load('model100.pkl')
-        y_prediction = model.predict_proba(X.values)[:,1] >= 0.022).astype(bool)
+        y_prediction = (model.predict_proba(X.values)[:,1] >= 0.022).astype(bool)
         probs = round(model.predict_proba(X.values)[:,1] * 100, 2)
     
         if y_prediction[0] == 1:
