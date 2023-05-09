@@ -23,7 +23,7 @@ def get_cid(api):
         compound = pcp.get_compounds(api, 'smiles')[0]
         return int(compound.cid)
 #%%
-st.title('Drug - Excipient Interaction')
+st.title('Drug - Excipient Interaction v1.3')
 col1, col2 = st.columns(2)
 with col1: 
     API_CID = st.text_input('Enter PubChem CID, or SMILES string of the API')
