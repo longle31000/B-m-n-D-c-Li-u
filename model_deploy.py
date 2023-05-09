@@ -90,12 +90,13 @@ if st.button('Result'):
     # 
         model = joblib.load('model100.pkl')
         y_prediction = (model.predict_proba(X.values)[:,1] >= 0.022).astype(bool)
-        probs = round(model.predict_proba(X.values)[:,1] * 100, 2)
+        probs1 = round(model.predict_proba(X.values)[:,1] * 100, 2)
+        probs0 = round(model.predict_proba(X.values)[:,0] * 100, 2)
     
         if y_prediction[0] == 1:
-            Predict_Result3 = 'Incompatible. Probality: ', probs, '%'
+            Predict_Result3 = 'Incompatible. Probality: ', probs1, '%'
         else:
-            Predict_Result3 = 'Compatible. Probality: ', 100 - probs, '%''
+            Predict_Result3 = 'Compatible. Probality: ', probs0, '%''
         st.success(Predict_Result3)
         st.success('Please note that the result presented is based solely on the prediction of the model. Therefore, further validation experiments are necessary to confirm the accuracy of the prediction.')
 
