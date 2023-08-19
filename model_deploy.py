@@ -26,7 +26,7 @@ def get_cid(api, option):
 st.title('Drug - Excipient Interaction v1.4')
 col1, col2 = st.columns([1,3])
 with col1: 
-    option1 = st.selectbox('Option', ['Name', 'PubChem CID', 'SMILES'])
+    option1 = st.selectbox('Search Option', ['Name', 'PubChem CID', 'SMILES'])
 with col2:
     API_CID = st.text_input('Enter name, Pubchem CID or smiles string of the API')
 col3, col4 = st.columns([1,3])
