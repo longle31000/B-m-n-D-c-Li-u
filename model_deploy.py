@@ -20,8 +20,6 @@ def get_cid(api, option):
         compound = pcp.Compound.from_cid(int(api))
     elif option == 'SMILES':
         compound = pcp.get_compounds(api, 'smiles')[0]
-    else:
-        return None
     return int(compound.cid)
 
 #%%
