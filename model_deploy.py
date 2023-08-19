@@ -26,16 +26,16 @@ def get_cid(api, option):
 
 #%%
 st.title('Drug - Excipient Interaction v1.4')
-col1, col2 = st.columns(2)
+col1, col2 = st.columns(1, 3)
 with col1: 
     option1 = st.selectbox('Column 1', ['Name', 'PubChem ID', 'SMILES'])
 with col2:
-    API_CID = st.text_input('Enter PubChem CID, name or SMILES string of the API')
-col3, col4 = st.columns(2)
+    API_CID = st.text_input('Enter the API')
+col3, col4 = st.columns(1, 3)
 with col3: 
     option3 = st.selectbox('Column 3', ['Name', 'PubChem ID', 'SMILES'])
 with col4:
-    Excipient_CID = st.text_input('Enter PubChem CID, name or SMILES string of the excipient')
+    Excipient_CID = st.text_input('Enter the excipient')
 
 df1 = pd.read_csv('data.csv')
 #%%
