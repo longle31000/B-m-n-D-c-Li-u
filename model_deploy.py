@@ -95,7 +95,7 @@ if st.button('Result'):
                                                                 'mol_Excipient','sentence_API','API_CID','Excipient_CID'], axis=1)), axis=1)
     # Load pretrained model
         model = joblib.load('model100.pkl')
-        y_prediction = model.predict(X)
+        y_prediction = model.predict(X.values)
         probs1 = np.round(model.predict_proba(X.values)[:,1] * 100, 2)
         probs0 = np.round(model.predict_proba(X.values)[:,0] * 100, 2)
     
