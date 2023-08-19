@@ -13,22 +13,28 @@ RDLogger.DisableLog('rdApp.*')
 from rdkit import Chem 
 
 #%%
-def get_cid(api):
-    # Check if input is a PubChem ID
-    if api.isdigit():
+def get_cid(api, option):
+    if option == 'Name':
+        compound = pcp.get_cids(api, 'name')[0]
+    elif option == 'PubChem ID':
         compound = pcp.Compound.from_cid(int(api))
-        return int(compound.cid)
-    # Check if input is a SMILES string
-    elif pcp.get_compounds(api, 'smiles'):
+    elif option == 'SMILES':
         compound = pcp.get_compounds(api, 'smiles')[0]
-        return int(compound.cid)
+    else:
+        return None
+    return int(compound.cid)
+
 #%%
-st.title('Drug - Excipient Interaction v1.3')
-col1, col2 = st.columns(2)
+st.title('Drug - Excipient Interaction v1.4')
+col1, col2, col3, col4 = st.columns(4)
 with col1: 
-    API_CID = st.text_input('Enter PubChem CID, or SMILES string of the API')
+    option1 = st.selectbox('Column 1', ['Name', 'PubChem ID', 'SMILES'])
 with col2:
-    Excipient_CID = st.text_input('Enter PubChem CID, or SMILES string of the excipient')
+    API_CID = st.text_input('Enter PubChem CID, name or SMILES string of the API')
+with col3: 
+    option3 = st.selectbox('Column 3', ['Name', 'PubChem ID', 'SMILES'])
+with col4:
+    Excipient_CID = st.text_input('Enter PubChem CID, name or SMILES string of the excipient')
 
 df1 = pd.read_csv('data.csv')
 #%%
@@ -38,8 +44,8 @@ Predict_Result2 = ''
 Predict_Result3 = ''
 
 if st.button('Result'):
-    API_CID = get_cid(API_CID)
-    Excipient_CID = get_cid(Excipient_CID)
+    API_CID = get_cid(API_CID, option1)
+    Excipient_CID = get_cid(Excipient_CID, option3)
     longle1 = df1.loc[(df1['API_CID'] == API_CID) & (df1['Excipient_CID'] == Excipient_CID)]
     longle2 = df1.loc[(df1['API_CID'] == Excipient_CID) & (df1['Excipient_CID'] == API_CID)]
 
@@ -99,12 +105,3 @@ if st.button('Result'):
             Predict_Result3 = f'Compatible. Probality: {probs0[0]}%'
         st.success(Predict_Result3)
         st.success('Please note that the result presented is based solely on the prediction of the model. Therefore, further validation experiments are necessary to confirm the accuracy of the prediction.')
-
-
-
-
-    
-    
-
-
-
