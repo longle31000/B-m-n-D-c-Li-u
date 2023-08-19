@@ -93,9 +93,9 @@ if st.button('Result'):
         X = pd.concat((pd.DataFrame(X1), pd.DataFrame(X2), df.drop(['mol2vec_API','mol2vec_Excipient', 'sentence_Excipient', 
                                                                 'API_Structure', 'Excipient_Structure' ,'mol_API',
                                                                 'mol_Excipient','sentence_API','API_CID','Excipient_CID'], axis=1)), axis=1)
-    # 
+    # Load pretrained model
         model = joblib.load('model100.pkl')
-        y_prediction = model.predict(X.values)
+        y_prediction = model.predict(X)
         probs1 = np.round(model.predict_proba(X.values)[:,1] * 100, 2)
         probs0 = np.round(model.predict_proba(X.values)[:,0] * 100, 2)
     
