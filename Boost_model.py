@@ -33,13 +33,12 @@ X_train_resampled
 from sklearn.ensemble import AdaBoostClassifier, RandomForestClassifier
 from xgboost import XGBClassifier
 model1 = AdaBoostClassifier(learning_rate = 0.7, n_estimators = 600)
-model2 = RandomForestClassifier(n_estimators=100)
-model3 = XGBClassifier(max_depth=5, learning_rate=0.5, n_estimators=100)
+model2 = RandomForestClassifier(n_estimators=200)
+model3 = XGBClassifier(max_depth=3, learning_rate=0.3, n_estimators=300)
 
 #%% Stack model
 from sklearn.ensemble import StackingClassifier
 from sklearn.linear_model import LogisticRegression
-#ada = AdaBoostClassifier(n_estimators = 50, random_state=42)
 lr = LogisticRegression(C=10)
 stack_model = StackingClassifier(estimators = [('ada', model1), ('rf', model2), ('xgb', model3)], final_estimator = lr)
 
@@ -140,3 +139,7 @@ cm_4 = confusion_matrix(y_test, y_pred_4, labels=stack_model.classes_)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm_4, display_labels=stack_model.classes_)
 disp.plot()
 plt.show()
+
+#%%
+import joblib
+joblib.dump(stack_model, 'F:\Phuong\Project\API Excipient interaction\Final\Streamlit app\BomonDuoclieu-Version-1.4\model100.pkl')
