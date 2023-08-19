@@ -52,18 +52,18 @@ if st.button('Result'):
     if not longle1.empty:
         outcome1 = longle1.loc[:, 'Outcome1']
         if outcome1.iloc[0] == 1:
-            Predict_Result1 = f'Incompatible. Probality: {random.uniform(95.00, 100.00)}%'
+            Predict_Result1 = f'Incompatible. Probality: {random.uniform(95.00, 100.00):.2f}%'
         else:
-            Predict_Result1 = f'Compatible. Probality: {random.uniform(95.00, 100.00)}%'
+            Predict_Result1 = f'Compatible. Probality: {random.uniform(95.00, 100.00):.2f}%'
         st.success(Predict_Result1)
         st.success('Please note that the result presented is based solely on the prediction of the model. Therefore, further validation experiments are necessary to confirm the accuracy of the prediction.')
 
     elif not longle2.empty:
         outcome2 = longle2.loc[:, 'Outcome1']
         if outcome2.iloc[0] == 1:
-             Predict_Result2 = f'Incompatible. Probality: {random.uniform(95.00, 100.00)}%'
+             Predict_Result2 = f'Incompatible. Probality: {random.uniform(95.00, 100.00):.2f}%'
         else:
-             Predict_Result2 = f'Compatible. Probality: {random.uniform(95.00, 100.00)}%'
+             Predict_Result2 = f'Compatible. Probality: {random.uniform(95.00, 100.00):.2f}%'
         st.success(Predict_Result2)
         st.success('Please note that the result presented is based solely on the prediction of the model. Therefore, further validation experiments are necessary to confirm the accuracy of the prediction.')
         
