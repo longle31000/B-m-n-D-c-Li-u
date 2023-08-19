@@ -16,7 +16,7 @@ from rdkit import Chem
 def get_cid(api, option):
     if option == 'Name':
         compound = pcp.get_compounds(api, 'name')[0]
-    elif option == 'PubChem ID':
+    elif option == 'PubChem CID':
         compound = pcp.Compound.from_cid(int(api))
     elif option == 'SMILES':
         compound = pcp.get_compounds(api, 'smiles')[0]
