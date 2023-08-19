@@ -43,7 +43,7 @@ lr = LogisticRegression(C=10)
 stack_model = StackingClassifier(estimators = [('ada', model1), ('rf', model2), ('xgb', model3)], final_estimator = lr)
 
 #%% Stack model - Fit data
-class_weights = {0: 0.9, 1: 0.1}
+class_weights = {0: 0.1, 1: 0.9}
 stack_model.fit(X_train_resampled, y_train_resampled, sample_weight=[class_weights[i] for i in y_train_resampled])
 
 #%% Stack model - Evaluation
@@ -139,7 +139,3 @@ cm_4 = confusion_matrix(y_test, y_pred_4, labels=stack_model.classes_)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm_4, display_labels=stack_model.classes_)
 disp.plot()
 plt.show()
-
-#%%
-import joblib
-joblib.dump(stack_model, 'F:\Phuong\Project\API Excipient interaction\Final\Streamlit app\BomonDuoclieu-Version-1.4\model100.pkl')
