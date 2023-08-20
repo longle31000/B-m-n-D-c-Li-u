@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import io
 import requests
-url = 'https://raw.githubusercontent.com/phuongnvp/BomonDuoclieu/Version-1.3/data.csv'
+url = 'https://raw.githubusercontent.com/phuongnvp/BomonDuoclieu/Version-1.4/data.csv'
 s=requests.get(url).content
 df=pd.read_csv(io.StringIO(s.decode('utf-8')))
 df.columns = ['Pub_CID' + str(i+1) if i<100 else col for i, col in enumerate(df.columns)]
