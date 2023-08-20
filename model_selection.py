@@ -30,7 +30,7 @@ X_train_resampled
 from sklearn.ensemble import RandomForestClassifier
 
 param_grid_RF = {
-        'n_estimators': [10, 50, 100],
+        'n_estimators': [50, 100, 150, 200, 300],
 }
 
 grid_search_RF = GridSearchCV(RandomForestClassifier(), param_grid = param_grid_RF, 
@@ -52,7 +52,7 @@ plt.show()
 #Desicion tree
 from sklearn.tree import DecisionTreeClassifier
 param_grid_DT = {
-        'max_depth': [5, 15, 25],
+        'max_depth': [5, 15, 25, 30, 40, 50],
 }
 
 grid_search_DT = GridSearchCV(DecisionTreeClassifier(), param_grid = param_grid_DT, 
@@ -73,8 +73,8 @@ plt.show()
 #Support vector machine
 from sklearn.svm import SVC
 param_grid_SVC = {
-    'gamma': [0.001, 0.01, 0.1],
-    'C': [1, 10, 100],
+    'gamma': [0.001, 0.01, 0.05, 0.1],
+    'C': [1, 5, 10, 100],
 }
 
 # Instantiate the grid search model
@@ -147,7 +147,7 @@ plt.show()
 #Logistic Regression
 from sklearn.linear_model import LogisticRegression
 param_grid_LR = {
-    'C': [0.01, 1, 10, 100],
+    'C': [0.01, 0.1, 0.3 ,0.5, 0.6, 0.7, 0.9, 0.8, 1, 10, 15],
 }
 # Instantiate the grid search model
 grid_search_LR = GridSearchCV(LogisticRegression(), param_grid = param_grid_LR, 
@@ -196,8 +196,9 @@ plt.show()
 #XGBoost
 from xgboost import XGBClassifier
 param_grid_XGB = {
-    'max_depth': [3, 5, 7],
-    'learning_rate': [0.1, 0.3, 0.5],
+    'n_estimators' : [200,300,400,500],
+    'max_depth': [3, 5, 7, 9, 15],
+    'learning_rate': [0.3, 0.5, 0.7, 0.9],
 }
 # Instantiate the grid search model
 grid_search_XGB = GridSearchCV(XGBClassifier(), param_grid = param_grid_XGB, 
@@ -215,3 +216,21 @@ cm = confusion_matrix(y_val, y_pred_XGB)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm)
 disp.plot()
 plt.show()
+
+#%%
+from sklearn.ensemble import AdaBoostClassifier
+
+param_grid_Ada = {
+        'n_estimators': [300, 500, 700, 600],
+        'learning_rate': [0.5, 0.7, 0.9],
+}
+
+grid_search_Ada = GridSearchCV(AdaBoostClassifier(), param_grid = param_grid_Ada,
+                           scoring = 'accuracy',
+                           cv = 5, n_jobs = -1, verbose = 0)
+# Fit the grid search to the data
+grid_search_Ada.fit(X_train_resampled, y_train_resampled)
+y_pred_Ada = grid_search_Ada.predict(X_val)
+print('Best parameters: ',grid_search_Ada.best_params_)
+print('Accuracy: ',accuracy_score(y_val,y_pred_Ada))
+print(classification_report(y_val,y_pred_Ada))
