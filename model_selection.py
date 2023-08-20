@@ -7,7 +7,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, ConfusionMatrixDisplay
 import io
 import requests
-url = 'https://raw.githubusercontent.com/phuongnvp/BomonDuoclieu/Version-1.4/data.csv'
+url = 'https://raw.githubusercontent.com/phuongnvp/BomonDuoclieu/Vesion-1.4/data.csv'
 s=requests.get(url).content
 df=pd.read_csv(io.StringIO(s.decode('utf-8')))
 print(df)
