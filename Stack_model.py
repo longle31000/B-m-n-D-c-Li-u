@@ -43,7 +43,7 @@ lr = LogisticRegression(C=10)
 stack_model = StackingClassifier(estimators = [('ada', model1), ('rf', model2), ('xgb', model3)], final_estimator = lr)
 
 #%% Stack model - Fit data
-class_weights = {0: 0.1, 1: 0.9}
+class_weights = {0: 0.3, 1: 0.7}
 stack_model.fit(X_train_resampled, y_train_resampled, sample_weight=[class_weights[i] for i in y_train_resampled])
 
 #%% Stack model - Evaluation
