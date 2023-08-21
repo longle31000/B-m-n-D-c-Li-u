@@ -221,7 +221,7 @@ plt.show()
 from sklearn.ensemble import AdaBoostClassifier
 
 param_grid_Ada = {
-        'n_estimators': [300, 500, 700, 600],
+        'n_estimators': [300, 400, 500, 600, 700],
         'learning_rate': [0.5, 0.7, 0.9],
 }
 
@@ -234,3 +234,9 @@ y_pred_Ada = grid_search_Ada.predict(X_val)
 print('Best parameters: ',grid_search_Ada.best_params_)
 print('Accuracy: ',accuracy_score(y_val,y_pred_Ada))
 print(classification_report(y_val,y_pred_Ada))
+
+#%%
+cm = confusion_matrix(y_val, y_pred_Ada)
+disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+disp.plot()
+plt.show()

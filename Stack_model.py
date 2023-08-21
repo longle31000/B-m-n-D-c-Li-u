@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import io
 import requests
-url = 'https://raw.githubusercontent.com/phuongnvp/BomonDuoclieu/Version-1.4/data.csv'
+url = 'https://raw.githubusercontent.com/phuongnvp/BomonDuoclieu/Vesion-1.4/data.csv'
 s=requests.get(url).content
 df=pd.read_csv(io.StringIO(s.decode('utf-8')))
 df.columns = ['Pub_CID' + str(i+1) if i<100 else col for i, col in enumerate(df.columns)]
@@ -32,9 +32,9 @@ X_train_resampled
 #%% Random forest and XGBoost
 from sklearn.ensemble import AdaBoostClassifier, RandomForestClassifier
 from xgboost import XGBClassifier
-model1 = AdaBoostClassifier(learning_rate = 0.7, n_estimators = 600)
-model2 = RandomForestClassifier(n_estimators=200)
-model3 = XGBClassifier(max_depth=3, learning_rate=0.3, n_estimators=300)
+model1 = AdaBoostClassifier(learning_rate = 0.7, n_estimators = 700)
+model2 = RandomForestClassifier(n_estimators=100)
+model3 = XGBClassifier(max_depth=15, learning_rate=0.9, n_estimators=200)
 
 #%% Stack model
 from sklearn.ensemble import StackingClassifier
@@ -47,14 +47,16 @@ class_weights = {0: 0.3, 1: 0.7}
 stack_model.fit(X_train_resampled, y_train_resampled, sample_weight=[class_weights[i] for i in y_train_resampled])
 
 #%% Stack model - Evaluation
-from sklearn.metrics import accuracy_score, f1_score, precision_score
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 y_pred = stack_model.predict(X_val)
 accuracy = accuracy_score(y_val, y_pred)
 f1 = f1_score(y_val, y_pred)
 precision = precision_score(y_val, y_pred)
+recall = recall_score(y_val, y_pred)
 print("Accuracy:", accuracy)
 print("F1-score:", f1)
 print("Precision:", precision)
+print("Recall: ", recall)
 
 #%% Stack model - Confusion matrix
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
@@ -80,9 +82,11 @@ y_pred_2 = (stack_model.predict_proba(X_val)[:,1] >= thresholds[ix]).astype(bool
 accuracy_2 = accuracy_score(y_val, y_pred_2)
 f1_2 = f1_score(y_val, y_pred_2)
 precision_2 = precision_score(y_val, y_pred_2)
+recall_2 = recall_score(y_val, y_pred_2)
 print("Accuracy:", accuracy_2)
 print("F1-score:", f1_2)
 print("Precision:", precision_2)
+print("Recall: ", recall_2)
 
 #%% Stack model - Confusion matrix of new model
 cm_2 = confusion_matrix(y_val, y_pred_2, labels=stack_model.classes_)
@@ -132,9 +136,11 @@ calc_metrics(y_test, y_pred_4, threshold = threshold1)
 accuracy_4 = accuracy_score(y_test, y_pred_4)
 f1_4 = f1_score(y_test, y_pred_4)
 precision_4 = precision_score(y_test, y_pred_4)
+recall_4 = recall_score(y_test, y_pred_4)
 print("Accuracy:", accuracy_4)
 print("F1-score:", f1_4)
 print("Precision:", precision_4)
+print("Recall: ", recall_4)
 cm_4 = confusion_matrix(y_test, y_pred_4, labels=stack_model.classes_)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm_4, display_labels=stack_model.classes_)
 disp.plot()
