@@ -24,7 +24,7 @@ def get_cid(api, option):
     return int(compound.cid)
 
 #%%
-st.title('Drug - Excipient Interaction Prediction')
+st.title('Drug - Excipient Interaction')
 col1, col2 = st.columns([1,3])
 with col1: 
     option1 = st.selectbox('Search Option', ['Name', 'PubChem CID', 'SMILES'])
