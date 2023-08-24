@@ -37,7 +37,7 @@ grid_search_RF = GridSearchCV(RandomForestClassifier(), param_grid = param_grid_
                            scoring = 'accuracy',
                            cv = 5, n_jobs = -1, verbose = 0)
 # Fit the grid search to the data
-grid_search_RF.fit(X_train, y_train)
+grid_search_RF.fit(X_train_resampled, y_train_resampled)
 y_pred_RF = grid_search_RF.predict(X_val)
 print('Best parameters: ',grid_search_RF.best_params_)
 print('Accuracy: ',accuracy_score(y_val,y_pred_RF))
@@ -59,7 +59,7 @@ grid_search_DT = GridSearchCV(DecisionTreeClassifier(), param_grid = param_grid_
                            scoring = 'accuracy',
                            cv = 5, n_jobs = -1, verbose = 0)
 # Fit the grid search to the data
-grid_search_DT.fit(X_train, y_train)
+grid_search_DT.fit(X_train_resampled, y_train_resampled)
 y_pred_DT = grid_search_DT.predict(X_val)
 print('Best parameters: ',grid_search_DT.best_params_)
 print('Accuracy: ',accuracy_score(y_val,y_pred_DT))
@@ -82,7 +82,7 @@ grid_search_SVC = GridSearchCV(SVC(), param_grid = param_grid_SVC,
                            scoring = 'accuracy',
                            cv = 5, n_jobs = -1, verbose = 0)
 # Fit the grid search to the data
-grid_search_SVC.fit(X_train, y_train)
+grid_search_SVC.fit(X_train_resampled, y_train_resampled)
 print('Best parameters: ',grid_search_SVC.best_params_)
 y_pred_SVC = grid_search_SVC.predict(X_val) 
 # print classification report 
@@ -109,7 +109,7 @@ grid_search_MLP = GridSearchCV(MLPClassifier(), param_grid = param_grid_MLP,
                            scoring = 'accuracy',
                            cv = 5, n_jobs = -1, verbose = 0)
 # Fit the grid search to the data
-grid_search_MLP.fit(X_train, y_train)
+grid_search_MLP.fit(X_train_resampled, y_train_resampled)
 print('Best parameters: ',grid_search_MLP.best_params_)
 y_pred_MLP = grid_search_MLP.predict(X_val) 
 # print classification report 
@@ -132,7 +132,7 @@ grid_search_kNN = GridSearchCV(KNeighborsClassifier(), param_grid = param_grid_k
                            scoring = 'accuracy',
                            cv = 5, n_jobs = -1, verbose = 0)
 # Fit the grid search to the data
-grid_search_kNN.fit(X_train, y_train)
+grid_search_kNN.fit(X_train_resampled, y_train_resampled)
 print('Best parameters: ',grid_search_kNN.best_params_)
 y_pred_kNN = grid_search_kNN.predict(X_val) 
 # print classification report 
@@ -154,7 +154,7 @@ grid_search_LR = GridSearchCV(LogisticRegression(), param_grid = param_grid_LR,
                            scoring = 'accuracy',
                            cv = 5, n_jobs = -1, verbose = 0)
 # Fit the grid search to the data
-grid_search_LR.fit(X_train, y_train)
+grid_search_LR.fit(X_train_resampled, y_train_resampled)
 print('Best parameters: ',grid_search_LR.best_params_)
 y_pred_LR = grid_search_LR.predict(X_val) 
 # print classification report 
@@ -163,32 +163,6 @@ print(classification_report(y_val,y_pred_LR))
 #%%
 cm = confusion_matrix(y_val, y_pred_LR, labels=grid_search_LR.classes_)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=grid_search_LR.classes_)
-disp.plot()
-plt.show()
-#%%
-#Naive Bayes
-from sklearn.naive_bayes import GaussianNB, BernoulliNB
-GNB = GaussianNB()
-BNB = BernoulliNB()
-GNB.fit(X_train, y_train)
-y_pred_GNB = GNB.predict(X_val) 
-# print classification report 
-print('Accuracy: ',accuracy_score(y_val,y_pred_GNB))
-print(classification_report(y_val,y_pred_GNB))
-print('---------------')
-BNB.fit(X_train, y_train)
-y_pred_BNB = BNB.predict(X_val) 
-# print classification report 
-print('Accuracy: ',accuracy_score(y_val,y_pred_BNB))
-print(classification_report(y_val,y_pred_BNB))
-#%%
-cm = confusion_matrix(y_val, y_pred_GNB, labels=GNB.classes_)
-disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=GNB.classes_)
-disp.plot()
-plt.show()
-print('---------------')
-cm = confusion_matrix(y_val, y_pred_BNB, labels=BNB.classes_)
-disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=BNB.classes_)
 disp.plot()
 plt.show()
 
@@ -205,7 +179,7 @@ grid_search_XGB = GridSearchCV(XGBClassifier(), param_grid = param_grid_XGB,
                            scoring = 'accuracy',
                            cv = 5, n_jobs = -1, verbose = 0)
 # Fit the grid search to the data
-grid_search_XGB.fit(X_train, y_train)
+grid_search_XGB.fit(X_train_resampled, y_train_resampled)
 print('Best parameters: ',grid_search_XGB.best_params_)
 y_pred_XGB = grid_search_XGB.predict(X_val) 
 # print classification report 
@@ -234,7 +208,6 @@ y_pred_Ada = grid_search_Ada.predict(X_val)
 print('Best parameters: ',grid_search_Ada.best_params_)
 print('Accuracy: ',accuracy_score(y_val,y_pred_Ada))
 print(classification_report(y_val,y_pred_Ada))
-
 #%%
 cm = confusion_matrix(y_val, y_pred_Ada)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm)
