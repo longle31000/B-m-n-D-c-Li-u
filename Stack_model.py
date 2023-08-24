@@ -29,12 +29,12 @@ svmsmote = SVMSMOTE(random_state=42)
 X_train_resampled, y_train_resampled = svmsmote.fit_resample(X_train, y_train)
 X_train_resampled
 
-#%% Random forest and XGBoost
+#%% Random forest, XGBoost and AdaBoost
 from sklearn.ensemble import AdaBoostClassifier, RandomForestClassifier
 from xgboost import XGBClassifier
 model1 = AdaBoostClassifier(learning_rate = 0.7, n_estimators = 700)
-model2 = RandomForestClassifier(n_estimators=100)
-model3 = XGBClassifier(max_depth=15, learning_rate=0.9, n_estimators=200)
+model2 = RandomForestClassifier(n_estimators=200)
+model3 = XGBClassifier(max_depth=3, learning_rate=0.3, n_estimators=400)
 
 #%% Stack model
 from sklearn.ensemble import StackingClassifier
