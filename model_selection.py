@@ -22,7 +22,7 @@ X_train, X_remain, y_train, y_remain = train_test_split(X, y, test_size=.4, rand
 X_val, X_test, y_val, y_test = train_test_split(X_remain, y_remain, test_size=.5, random_state=817)
 #%%
 from imblearn.over_sampling import SVMSMOTE
-svmsmote = SVMSMOTE(random_state=42)
+svmsmote = SVMSMOTE()
 X_train_resampled, y_train_resampled = svmsmote.fit_resample(X_train, y_train)
 X_train_resampled
 #%%

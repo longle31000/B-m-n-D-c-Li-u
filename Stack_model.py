@@ -25,7 +25,7 @@ X_val, X_test, y_val, y_test = train_test_split(X_remain, y_remain, test_size=.5
 
 #%% Handle imbalanced data
 from imblearn.over_sampling import SVMSMOTE
-svmsmote = SVMSMOTE(random_state=42)
+svmsmote = SVMSMOTE()
 X_train_resampled, y_train_resampled = svmsmote.fit_resample(X_train, y_train)
 X_train_resampled
 
